@@ -1,198 +1,332 @@
 import React, { useState } from "react";
-import { Mail, Lock, User, Image, Loader2 } from "lucide-react";
+import { Mail, Lock, User, Image, Loader2, ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AuthForm = ({ type }) => {
   const navigate = useNavigate();
-  const [emailOrUsername, setEmailOrUsername] = useState(""); // Combined field for email or username
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [avatarFile, setAvatarFile] = useState(null); // Store the file object
-  const [coverImageFile, setCoverImageFile] = useState(null); // Store the file object
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    username: "",
+    fullName: "",
+    avatar: null,
+    coverImage: null,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  const steps = [
+    { title: "Account Setup", subtitle: "Create your login credentials" },
+    { title: "Profile Info", subtitle: "Tell us about yourself" },
+    { title: "Profile Images", subtitle: "Add your avatar and cover" },
+  ];
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e, field) => {
+    setFormData({ ...formData, [field]: e.target.files[0] });
+  };
+
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        if (!formData.email || !formData.password) {
+          setError("Please fill in all fields");
+          return false;
+        }
+        break;
+      case 2:
+        if (!formData.fullName || !formData.username) {
+          setError("Please fill in all fields");
+          return false;
+        }
+        break;
+      case 3:
+        if (!formData.avatar) {
+          setError("Avatar is required");
+          return false;
+        }
+        break;
+    }
+    return true;
+  };
+
+  const handleNextStep = () => {
+    if (!validateStep()) return;
+    setError(null);
+    setStep(prev => Math.min(prev + 1, 3));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-    setSuccessMessage(null);
+    if (!validateStep()) return;
+    
+    if (type === "signup" && step < 3) {
+      handleNextStep();
+      return;
+    }
 
+    setIsLoading(true);
     try {
       if (type === "signup") {
-        const formData = new FormData(); // Create FormData object
-        formData.append("username", username);
-        formData.append("email", emailOrUsername); // Use emailOrUsername for email
-        formData.append("password", password);
-        formData.append("fullName", fullName);
-
-        if (avatarFile) {
-          formData.append("avatar", avatarFile); // Append the file object
-        }
-        if (coverImageFile) {
-          formData.append("coverImage", coverImageFile); // Append the file object
-        }
-
-        const res = await axios.post("http://localhost:5300/api/v1/users/register", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data", // Set the correct content type
-          },
+        const data = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+          if (value) data.append(key, value);
         });
-        console.log(res.data);
+
+        const res = await axios.post("http://localhost:5300/api/v1/users/register", data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
         setSuccessMessage("Signup successful! Redirecting...");
         setTimeout(() => navigate("/home"), 2000);
       } else {
-        // Login logic
         const res = await axios.post("http://localhost:5300/api/v1/users/login", {
-          emailOrUsername, // Send email or username to the backend
-          password,
+          emailOrUsername: formData.email,
+          password: formData.password,
         });
-        console.log(res.data);
-        setSuccessMessage("Login successful! Redirecting...");
 
-        // Store user data and tokens in localStorage
         localStorage.setItem("user", JSON.stringify(res.data.data.user));
         localStorage.setItem("accessToken", res.data.data.accessToken);
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
 
-        // Redirect to home page after 2 seconds
+        setSuccessMessage("Login successful! Redirecting...");
         setTimeout(() => navigate("/home"), 2000);
       }
     } catch (error) {
-      console.error(error);
       setError(error.response?.data?.message || "Something went wrong!");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleAvatar = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setAvatarFile(file); // Store the file object
-  };
-
-  const handleCoverImage = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setCoverImageFile(file); // Store the file object
-  };
-
   return (
-    <div className="max-w-md w-full mx-auto p-8 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-gray-700 shadow-2xl transform transition-transform hover:scale-105">
-      <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-8 text-center">
-        {type === "signup" ? "Create Account" : "Welcome Back"}
+    <div className="max-w-md w-full mx-auto p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-amber-500/20 shadow-2xl">
+      {/* Progress Indicator */}
+      {type === "signup" && (
+        <div className="w-full mb-8">
+          <div className="flex items-center justify-between relative">
+            <div className="absolute top-1/2 left-0 w-full h-[2px] bg-amber-500/20 -translate-y-1/2 z-0" />
+            {steps.map((_, index) => (
+              <div key={index} className="relative z-10 flex-1 flex justify-center">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all 
+                  ${step > index + 1 ? 'bg-amber-500' : 'bg-amber-500/20'} 
+                  ${step === index + 1 ? 'ring-4 ring-amber-500/30' : ''}`}>
+                  {step > index + 1 ? (
+                    <Check className="w-3 h-3 text-black" />
+                  ) : (
+                    <span className={`text-xs font-medium ${step === index + 1 ? 'text-amber-500' : 'text-amber-500/50'}`}>
+                      {index + 1}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 mb-6 text-center">
+        {type === "signup" ? steps[step - 1]?.title : "Welcome Back"}
       </h2>
+      <p className="text-center text-amber-500/80 mb-8">
+        {type === "signup" ? steps[step - 1]?.subtitle : "Login to continue"}
+      </p>
+
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Full Name Field */}
-        {type === "signup" && (
-          <div className="flex items-center bg-gray-800/50 border border-cyan-500/20 rounded-xl px-4 py-3 transition-all hover:border-cyan-500/40">
-            <User className="text-cyan-400" size={20} />
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
-              required
-            />
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={step}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.2 }}
+          >
+            {type === "signup" ? (
+              <>
+                {step === 1 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center bg-gray-800/50 border border-amber-500/20 rounded-xl px-4 py-3 transition-all hover:border-amber-500/40">
+                      <Mail className="text-amber-400" size={20} />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
+                        required
+                      />
+                    </div>
 
-        {/* Username Field */}
-        {type === "signup" && (
-          <div className="flex items-center bg-gray-800/50 border border-cyan-500/20 rounded-xl px-4 py-3 transition-all hover:border-cyan-500/40">
-            <User className="text-cyan-400" size={20} />
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
-              required
-            />
-          </div>
-        )}
+                    <div className="flex items-center bg-gray-800/50 border border-amber-500/20 rounded-xl px-4 py-3 transition-all hover:border-amber-500/40">
+                      <Lock className="text-amber-400" size={20} />
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
 
-        {/* Email or Username Field */}
-        <div className="flex items-center bg-gray-800/50 border border-cyan-500/20 rounded-xl px-4 py-3 transition-all hover:border-cyan-500/40">
-          <Mail className="text-cyan-400" size={20} />
-          <input
-            type="text"
-            placeholder={type === "signup" ? "Email" : "Email or Username"}
-            value={emailOrUsername}
-            onChange={(e) => setEmailOrUsername(e.target.value)}
-            className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
-            required
-          />
-        </div>
+                {step === 2 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center bg-gray-800/50 border border-amber-500/20 rounded-xl px-4 py-3 transition-all hover:border-amber-500/40">
+                      <User className="text-amber-400" size={20} />
+                      <input
+                        type="text"
+                        name="fullName"
+                        placeholder="Full Name"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
+                        required
+                      />
+                    </div>
 
-        {/* Password Field */}
-        <div className="flex items-center bg-gray-800/50 border border-cyan-500/20 rounded-xl px-4 py-3 transition-all hover:border-cyan-500/40">
-          <Lock className="text-cyan-400" size={20} />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
-            required
-          />
-        </div>
+                    <div className="flex items-center bg-gray-800/50 border border-amber-500/20 rounded-xl px-4 py-3 transition-all hover:border-amber-500/40">
+                      <User className="text-amber-400" size={20} />
+                      <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        onChange={handleInputChange}
+                        className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
 
-        {/* Avatar Field */}
-        {type === "signup" && (
-          <div className="flex items-center bg-gray-800/50 border border-cyan-500/20 rounded-xl px-4 py-3 transition-all hover:border-cyan-500/40">
-            <Image className="text-cyan-400" size={20} />
-            <input
-              type="file"
-              accept="image/*" // Accept only image files
-              onChange={handleAvatar}
-              className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
-              required
-            />
-          </div>
-        )}
+                {step === 3 && (
+                  <div className="space-y-8">
+                  {/* Profile (Avatar) Upload */}
+                  <div className="flex items-center gap-4">
+                    {/* Rounded Preview Avatar Placeholder */}
+                    <div className="w-16 h-16 rounded-full bg-gray-700 border-2 border-amber-500/40 flex items-center justify-center overflow-hidden">
+                      <Image className="text-amber-400 w-8 h-8" />
+                    </div>
+                    {/* Upload Button */}
+                    <label className="cursor-pointer flex-1">
+                      <div className="bg-gray-800/50 border border-amber-500/20 hover:border-amber-500/40 text-gray-100 rounded-xl px-4 py-2 transition-all text-sm">
+                        Upload Profile Photo
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, "avatar")}
+                        className="hidden"
+                        required
+                      />
+                    </label>
+                  </div>
+                
+                  {/* Cover Image Upload */}
+                  <div className="flex flex-col gap-2">
+                    <div className="text-sm text-gray-300">Cover Image</div>
+                    <label className="relative block cursor-pointer">
+                      <div className="h-40 w-full bg-gray-800/50 border border-amber-500/20 hover:border-amber-500/40 rounded-xl flex items-center justify-center transition-all">
+                        <Image className="text-amber-400 w-10 h-10" />
+                        <span className="ml-3 text-gray-100 text-sm">Upload Cover Photo</span>
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, "coverImage")}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                </div>
+                
+                )}
+              </>
+            ) : (
+              <div className="space-y-6">
+                <div className="flex items-center bg-gray-800/50 border border-amber-500/20 rounded-xl px-4 py-3 transition-all hover:border-amber-500/40">
+                  <Mail className="text-amber-400" size={20} />
+                  <input
+                    type="text"
+                    placeholder="Email or Username"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
+                    required
+                  />
+                </div>
 
-        {/* Cover Image Field */}
-        {type === "signup" && (
-          <div className="flex items-center bg-gray-800/50 border border-cyan-500/20 rounded-xl px-4 py-3 transition-all hover:border-cyan-500/40">
-            <Image className="text-cyan-400" size={20} />
-            <input
-              type="file"
-              accept="image/*" // Accept only image files
-              onChange={handleCoverImage}
-              className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
-              required
-            />
-          </div>
-        )}
+                <div className="flex items-center bg-gray-800/50 border border-amber-500/20 rounded-xl px-4 py-3 transition-all hover:border-amber-500/40">
+                  <Lock className="text-amber-400" size={20} />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="flex-1 bg-transparent ml-3 text-gray-100 placeholder-gray-400 focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-xl font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all transform hover:scale-105 flex items-center justify-center"
-        >
-          {isLoading ? (
-            <Loader2 className="animate-spin mr-2" size={20} />
-          ) : (
-            type === "signup" ? "Sign Up" : "Login"
+        <div className="flex gap-4">
+          {type === "signup" && step > 1 && (
+            <button
+              type="button"
+              onClick={() => setStep(prev => prev - 1)}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-xl transition-colors"
+            >
+              <ChevronLeft size={18} />
+              Previous
+            </button>
           )}
-        </button>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 ${
+              type === "signup" && step < 3 
+                ? "bg-amber-500/10 hover:bg-amber-500/20 text-amber-400"
+                : "bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white"
+            } rounded-xl font-semibold transition-all`}
+          >
+            {isLoading ? (
+              <Loader2 className="animate-spin" size={20} />
+            ) : type === "signup" ? (
+              step === 3 ? "Sign Up" : (
+                <>
+                  Next
+                  <ChevronRight size={18} />
+                </>
+              )
+            ) : (
+              "Login"
+            )}
+          </button>
+        </div>
       </form>
 
-      {/* Success Message */}
+      {/* Messages */}
       {successMessage && (
         <div className="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-center">
           {successMessage}
         </div>
       )}
 
-      {/* Error Message */}
       {error && (
         <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-center">
           {error}
@@ -200,13 +334,13 @@ const AuthForm = ({ type }) => {
       )}
 
       {/* Toggle between Signup and Login */}
-      <p className="text-sm text-gray-400 mt-6 text-center">
+      <p className="text-sm text-amber-500/80 mt-6 text-center">
         {type === "signup" ? (
           <>
             Already have an account?{" "}
             <button
               onClick={() => navigate("/login")}
-              className="text-cyan-400 hover:text-cyan-300 underline transition-colors"
+              className="text-amber-400 hover:text-amber-300 underline transition-colors"
             >
               Login
             </button>
@@ -215,8 +349,8 @@ const AuthForm = ({ type }) => {
           <>
             Don't have an account?{" "}
             <button
-              onClick={() => navigate("/")}
-              className="text-cyan-400 hover:text-cyan-300 underline transition-colors"
+              onClick={() => navigate("/signup")}
+              className="text-amber-400 hover:text-amber-300 underline transition-colors"
             >
               Sign Up
             </button>

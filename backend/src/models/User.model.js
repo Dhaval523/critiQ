@@ -48,6 +48,10 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Playlist" // Reference to Playlist collection
     }]
+    ,
+    bio : {
+        type: String,
+    },
 }, {
     timestamps: true
 });

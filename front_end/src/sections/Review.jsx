@@ -52,8 +52,8 @@ const Review = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen w-full py-12 text-white">
-      <Navbar />
+    <div className="bg-gray-900 min-h-screen w-full py-12 text-white">
+      <Navbar className="z-50" />
       
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {reviewsData.map((review) => (
@@ -70,6 +70,7 @@ const Review = () => {
               createdAt={review.createdAt}
               _id={review._id}
               likes={review.likes}
+              className = "z-0"
             />
           </div>
         ))}

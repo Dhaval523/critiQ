@@ -202,9 +202,9 @@ const TrendingMovies= () => {
     <div className="text-white p-5 md:px-20 py-8">
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <CalendarDays className="w-8 h-8 text-cyan-500" />
+        <CalendarDays className="w-8 h-8 text-amber-500" />
         <h1 className="text-xl md:text-3xl font-bold">
-          My Movie <span className="text-cyan-500">Plan</span>
+          My Movie <span className="text-amber-500">Plan</span>
         </h1>
       </div>
 
@@ -221,7 +221,7 @@ const TrendingMovies= () => {
           />
           <button
             type="submit"
-            className="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg flex items-center gap-2"
           >
             Search
           </button>
@@ -236,7 +236,7 @@ const TrendingMovies= () => {
             {searchResults.map((movie) => (
               <div
                 key={movie.imdbID}
-                className="relative group bg-gray-800 rounded-lg overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/20"
+                className="relative group bg-gray-800 rounded-lg overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-amber-500/20"
               >
                 <img
                   src={movie.Poster}
@@ -248,7 +248,7 @@ const TrendingMovies= () => {
                   <p className="text-sm text-gray-400">{movie.Year}</p>
                   <button
                     onClick={() => addToPlaylist(movie)}
-                    className="w-full mt-4 bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                    className="w-full mt-4 bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2"
                   >
                     <Plus className="w-4 h-4" />
                     Add to Playlist
@@ -280,7 +280,7 @@ const TrendingMovies= () => {
                   <p className="text-sm text-gray-400">{movie.Year}</p>
                   <button
                     onClick={() => addToPlaylist(movie)}
-                    className="w-full mt-4 bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                    className="w-full mt-4 bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2"
                   >
                     <Plus className="w-4 h-4" />
                     Add to Playlist
@@ -298,7 +298,7 @@ const TrendingMovies= () => {
           <h2 className="text-xl font-bold">Your Playlist</h2>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-lg flex items-center gap-2"
           >
             <Save className="w-5 h-5" />
             Save Playlist
@@ -321,7 +321,7 @@ const TrendingMovies= () => {
       {/* Reminder Settings */}
       <div className="bg-gray-800 p-6 rounded-xl mt-6">
         <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <AlertCircle className="w-5 h-5 text-cyan-500" />
+          <AlertCircle className="w-5 h-5 text-amber-500" />
           Reminder Settings
         </h3>
         <div className="space-y-4">
@@ -338,7 +338,7 @@ const TrendingMovies= () => {
           </div>
           <button
             onClick={scheduleNotifications}
-            className="w-full bg-cyan-600 hover:bg-cyan-700 py-2 rounded-lg flex items-center justify-center gap-2"
+            className="w-full bg-amber-500 hover:bg-amber-700 py-2 rounded-lg flex items-center justify-center gap-2"
           >
             <Bell className="w-5 h-5" />
             Enable Notifications
@@ -367,7 +367,7 @@ const TrendingMovies= () => {
               </button>
               <button
                 onClick={savePlaylist}
-                className="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg"
+                className="bg-amber-500 hover:bg-amber-700 px-4 py-2 rounded-lg"
               >
                 Save
               </button>

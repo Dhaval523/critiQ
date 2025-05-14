@@ -14,7 +14,7 @@ const createNotification = async (recipientId , senderId ,type, relatedId, messa
         return  notification ;
         
     } catch (error) {
-         throw ApiError(500,"error creatingnotification",error);
+         throw new ApiError(500,"error creatingnotification",error);
     }
 }
 export {

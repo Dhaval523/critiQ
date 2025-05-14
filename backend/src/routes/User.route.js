@@ -6,7 +6,8 @@ import {registerUser,
     FollowerFollowing,
     getFollowingAndFollowers,
     checkIsFollow,
-    toggleFollow
+    toggleFollow,
+    updateProfile
 } from "../controllers/User.controller.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
 
@@ -28,6 +29,7 @@ router.route('/followerAndFollowing').post(verifyJWT,FollowerFollowing)
 router.route("/getFollowersAndFollowing").get(verifyJWT,getFollowingAndFollowers)
 router.route("/checkFollow").post(verifyJWT,checkIsFollow)
 router.route("/toggleFollow").post(verifyJWT,toggleFollow)
+router.route('/updateprofile').post(verifyJWT,updateProfile)
 
 
 export default router;

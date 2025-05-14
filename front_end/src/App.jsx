@@ -7,6 +7,7 @@ import SignUp from './sections/SignUp';
 import Login from './sections/Login';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProfilePage from './sections/ProfilePage';
+import CritiQOpening from './sections/Homepage';
 
 const App = () => {
 
@@ -22,13 +23,14 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />      
         <Route path="/home" element={<Home />} />
         <Route path="/review" element={<Review />} />
         <Route path="/post" element={<Post />} />
         <Route path='/notifaction' element={<Noti />} />
         <Route path='/profile' element={<ProfilePage />} />
+        < Route path='/' element={<CritiQOpening/>} />
       </Routes>
     </Router>
 

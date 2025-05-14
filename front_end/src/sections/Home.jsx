@@ -7,9 +7,9 @@ import TrendingMovies from '../components/trendingMovies'
 
 const Home = () => {
   return (
-    <div className='h-full w-full bg-black  py-12'>
+    <div className='h-full w-full bg-gray-900  py-12'>
 
-      <Navbar />
+      <Navbar className= "z-50" />
 
       <TrendingMovies />
     </div>

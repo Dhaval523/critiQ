@@ -45,7 +45,6 @@ const likePost = asyncHandler(async (req, res) => {
     }
 
     // Save the updated post
-    const updatedPost = await post.save();
 
     return res
         .status(200)

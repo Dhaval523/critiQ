@@ -11,7 +11,7 @@ const Notifications = () => {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5300/api/v1/notifiaction/getNotification",
+        "http://localhost:5300/api/v1/notification/getNotification",
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
