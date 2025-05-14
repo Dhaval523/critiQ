@@ -1,5 +1,5 @@
-@import "tailwindcss";
 
+@import "tailwindcss";
 @layer utilities {
   .animate-gradient-x {
     background-size: 200% 200%;
