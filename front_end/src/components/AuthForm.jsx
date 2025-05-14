@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 const AuthForm = ({ type }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
