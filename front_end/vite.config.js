@@ -1,16 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
-    tailwindcss()
+    react()
   ],
   server: {
     host: '0.0.0.0',
-    port: 5173,  // or any port you want, but usually 5173 is default for vite
+    port: 5173,
     allowedHosts: ['critiq-jl2j.onrender.com']
   }
 })
