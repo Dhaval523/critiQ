@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Search from '../components/Search'
 import Mood from '../components/Mood'
-import TrendingMovies from '../components/trendingMovies'
+import TrendingMovies from '../components/TrendingMovies'
 
 
 const Home = () => {
