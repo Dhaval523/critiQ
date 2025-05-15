@@ -2,9 +2,10 @@
     "name": "front_end",
     "version": "1.0.0",
     "scripts": {
-        "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
-        "start": "node --experimental-json-modules src/index.js"
-    },
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+},
     "type": "module",
     "dependencies": {
         "@dnd-kit/core": "^6.3.1",
