@@ -79,7 +79,7 @@ const ReviewCard = ({
 
   // Socket.io initialization
   useEffect(() => {
-    const socketInstance = io('https://critiq-backend.onrender.com', {
+    const socketInstance = io('https://critiq-3.onrender.com', {
       auth: { token: accessToken }
     });
     setSocket(socketInstance);
