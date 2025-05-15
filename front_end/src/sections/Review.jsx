@@ -11,7 +11,7 @@ const Review = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axiosInstance.get("/api/v1/reviews/getReviews");
+        const res = await fetch("https://critiq-3.onrender.com/api/v1/reviews/getReviews");
         if (!res.ok) {
           throw new Error(`Failed to fetch reviews: ${res.status} ${res.statusText}`);
         }

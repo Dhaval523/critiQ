@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <style>
+    .cls-1{fill:#ffaa00}.cls-2{fill:#fff}.cls-3{fill:none;stroke:#ffaa00;stroke-linecap:round;stroke-width:8}
+  </style>
+  <path d="M100 0a100 100 0 1 0 100 100A100 100 0 0 0 100 0" fill="#1a1a1a"/>
+  <path class="cls-1" d="M140 60h-80a20 20 0 0 0-20 20v40a20 20 0 0 0 20 20h80a20 20 0 0 0 20-20V80a20 20 0 0 0-20-20"/>
+  <path class="cls-2" d="M75 85l15-15 15 30 15-30 15 15"/>
+  <path class="cls-3" d="M140 60v-5a25 25 0 0 1 25 25h-5a20 20 0 0 0-20-20"/>
+  <text x="50%" y="160" text-anchor="middle" font-family="Arial" font-size="24" fill="#ffaa00">
+    <tspan font-weight="bold">CRITI</tspan>
+    <tspan font-weight="bold" fill="#fff">Q</tspan>
+  </text>
+  <text x="50%" y="185" text-anchor="middle" font-family="Arial" font-size="12" fill="#fff">
+    FILM REVIEWS
+  </text>
+</svg>
