@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
-import {savePlaylist, getPlaylist } from "../controllers/playlist.controller.js";
+import {savePlaylist, getPlaylist } from "../controllers/Playlist.controller.js";
 const router = Router();
 
 router.route('/savePlaylist').post(verifyJWT,savePlaylist)
