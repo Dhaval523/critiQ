@@ -11,5 +11,6 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,  // or any port you want, but usually 5173 is default for vite
+    allowedHosts: ['critiq-jl2j.onrender.com']
   }
 })
