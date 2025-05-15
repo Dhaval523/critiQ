@@ -81,14 +81,14 @@ const AuthForm = ({ type }) => {
           if (value) data.append(key, value);
         });
 
-        const res = await axiosInstance.post("/api/users/register", data, {
+        const res = await axiosInstance.post("/api/v1/users/register", data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
 
         setSuccessMessage("Signup successful! Redirecting...");
         setTimeout(() => navigate("/home"), 2000);
       } else {
-        const res = await axiosInstance.post("/api/users/login", {
+        const res = await axiosInstance.post("/api/v1/users/login", {
           emailOrUsername: formData.email,
           password: formData.password,
         });
