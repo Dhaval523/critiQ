@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 const UsernameForm = () => {
   const [username, setUsername] = useState(""); // ✅ Changed id_name to username
@@ -11,7 +11,7 @@ const UsernameForm = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/create-username", { username }); // ✅ Sending username
+      const res = await axiosInstance.post("/api/auth/create-username", { username }); // ✅ Sending username
       console.log(res.data);
       navigate("/home");
     } catch (error) {

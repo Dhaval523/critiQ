@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
 import { Users, List, Plus, Settings, X, Film, Clapperboard, LogOut, Image, Camera } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import axiosInstance from "../api/axiosInstance";
+import { Axios } from "axios";
 
 const EditSettingsModal = ({ user, onClose, onLogout, onCoverUpdate }) => {
   const [fullName, setFullName] = useState(user.fullName || "");
@@ -47,8 +48,8 @@ const EditSettingsModal = ({ user, onClose, onLogout, onCoverUpdate }) => {
         formData.append("avatar", avatar);
       }
 
-      const response = await axios.put(
-        "http://localhost:5300/api/v1/users/updateProfile",
+      const response = await axiosInstance.put(
+        "/api/v1/users/updateProfile",
         formData,
         { 
           headers: { 
@@ -81,8 +82,8 @@ const EditSettingsModal = ({ user, onClose, onLogout, onCoverUpdate }) => {
     }
 
     try {
-      await axios.put(
-        "http://localhost:5300/api/v1/users/changePassword",
+      await axiosInstance.put(
+        "/api/v1/users/changePassword",
         { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
@@ -269,7 +270,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:5300/api/v1/users/profileView", {
+        const response = await axiosInstance.get("/api/v1/users/profileView", {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         if (response.data?.data) {
@@ -290,7 +291,7 @@ const Profile = () => {
 
   const fetchFollowers = async () => {
     try {
-      const response = await axios.get("http://localhost:5300/api/v1/users/getFollowersAndFollowing", {
+      const response = await axiosInstance.get("/api/v1/users/getFollowersAndFollowing", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       setFollowers(response.data.data.followers || []);
@@ -302,7 +303,7 @@ const Profile = () => {
 
   const fetchFollowing = async () => {
     try {
-      const response = await axios.get("http://localhost:5300/api/v1/users/getFollowersAndFollowing", {
+      const response = await axiosInstance.get("/api/v1/users/getFollowersAndFollowing", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       setFollowing(response.data.data.following || []);

@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import EmojiPicker from 'emoji-picker-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import moment from 'moment';
+import axiosInstance from '../api/axiosInstance';
 
 // Movie-themed loading components
 const FilmReelLoader = () => (
@@ -78,7 +79,7 @@ const ReviewCard = ({
 
   // Socket.io initialization
   useEffect(() => {
-    const socketInstance = io('http://localhost:5300', {
+    const socketInstance = io('https://critiq-backend.onrender.com', {
       auth: { token: accessToken }
     });
     setSocket(socketInstance);
@@ -122,8 +123,8 @@ const ReviewCard = ({
   
   const fetchComments = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5300/api/v1/comment/${_id}`,
+      const res = await axiosInstance.get(
+        `/api/v1/comment/${_id}`,
         axiosConfig
       );
       setComments(res.data.data);
@@ -138,8 +139,8 @@ const ReviewCard = ({
 
     setCommentLoading(true);
     try {
-      await axios.post(
-        `http://localhost:5300/api/v1/comment/createComment`,
+      await axiosInstance.post(
+        `/api/v1/comment/createComment`,
         { content: newComment, postId: _id },
         axiosConfig
       );
@@ -154,8 +155,8 @@ const ReviewCard = ({
 
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.get(
-        `http://localhost:5300/api/v1/comment/${commentId}`,
+      await axiosInstance.get(
+        `/api/v1/comment/${commentId}`,
         axiosConfig
       );
     } catch (err) {
@@ -215,15 +216,15 @@ const ReviewCard = ({
         const currentUserId = localStorage.getItem("user");
         if (!currentUserId || !_id || !accessToken) return;
 
-        const likeResponse = await axios.post(
-          "http://localhost:5300/api/v1/notification/isLike", 
+        const likeResponse = await axiosInstance.post(
+          "/api/v1/notification/isLike", 
           { postId: _id }, 
           axiosConfig
         );
         setIsLiked(likeResponse.data.data.isLiked);
 
-        const followResponse = await axios.post(
-          "http://localhost:5300/api/v1/users/checkFollow",
+        const followResponse = await axiosInstance.post(
+          "/api/v1/users/checkFollow",
           { followedId: user._id.toString() },
           axiosConfig
         );
@@ -247,8 +248,8 @@ const ReviewCard = ({
     setLikesCount(prev => newLikedState ? prev + 1 : prev - 1);
 
     try {
-      await axios.post(
-        "http://localhost:5300/api/v1/notification/likeNotification",
+      await axiosInstance.post(
+        "/api/v1/notification/likeNotification",
         { postId: _id },
         axiosConfig
       );
@@ -271,8 +272,8 @@ const ReviewCard = ({
     setErrorMessage(null);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5300/api/v1/users/toggleFollow",
+      const response = await axiosInstance.post(
+        "/api/v1/users/toggleFollow",
         { followedId: user._id.toString() },
         axiosConfig
       );

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../api/axiosInstance';
 
 const Post = () => {
   const [step, setStep] = useState(1);
@@ -93,7 +94,7 @@ const Post = () => {
         formData.append('image', blob, 'poster.jpg');
       }
 
-      await axios.post('http://localhost:5300/api/v1/reviews/reviewUpload', formData, {
+      await axiosInstance.post('/api/v1/reviews/reviewUpload', formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',

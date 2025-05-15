@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { Bell, UserPlus, Heart } from "lucide-react";
+
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -10,8 +11,8 @@ const Notifications = () => {
   // Function to fetch notifications
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5300/api/v1/notification/getNotification",
+      const response = await axiosInstance.get(
+        "/api/v1/notification/getNotification",
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 

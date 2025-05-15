@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReviewCard from "../components/ReviewCard";
 import Navbar from "../components/Navbar";
+import axiosInstance from "../api/axiosInstance";
 
 const Review = () => {
   const [reviewsData, setReviewsData] = useState([]);
@@ -10,7 +11,7 @@ const Review = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch("http://localhost:5300/api/v1/reviews/getReviews");
+        const res = await axiosInstance.get("/api/v1/reviews/getReviews");
         if (!res.ok) {
           throw new Error(`Failed to fetch reviews: ${res.status} ${res.statusText}`);
         }

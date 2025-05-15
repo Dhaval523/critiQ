@@ -4,7 +4,7 @@ import { SortableContext, arrayMove, verticalListSortingStrategy, useSortable } 
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { format, addDays } from "date-fns";
 import { CalendarDays, Search, Plus, Trash, AlertCircle, Bell, Save } from "lucide-react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 const TrendingMovies= () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -173,8 +173,8 @@ const TrendingMovies= () => {
     }
   
     try {
-      const response = await axios.post(
-        "http://localhost:5300/api/v1/playlist/savePlaylist",
+      const response = await axiosInstance.post(
+        "/api/v1/playlist/savePlaylist",
         {
           name: playlistName,
           movies: playlist,

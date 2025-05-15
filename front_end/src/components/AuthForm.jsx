@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Mail, Lock, User, Image, Loader2, ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { motion, AnimatePresence } from "framer-motion";
 
 
@@ -81,14 +81,14 @@ const AuthForm = ({ type }) => {
           if (value) data.append(key, value);
         });
 
-        const res = await axios.post("http://localhost:5300/api/v1/users/register", data, {
+        const res = await axiosInstance.post("/api/users/register", data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
 
         setSuccessMessage("Signup successful! Redirecting...");
         setTimeout(() => navigate("/home"), 2000);
       } else {
-        const res = await axios.post("http://localhost:5300/api/v1/users/login", {
+        const res = await axiosInstance.post("/api/users/login", {
           emailOrUsername: formData.email,
           password: formData.password,
         });
