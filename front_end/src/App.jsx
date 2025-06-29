@@ -8,29 +8,35 @@ import Login from './sections/Login';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProfilePage from './sections/ProfilePage';
 import CritiQOpening from './sections/Homepage';
+import MainPage from './sections/MainPage';
+import MovieLoader from './components/MovieLoader';
+import About from './sections/about';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
 
-  // useEffect(()=>{
-  //   const runFun = async ()=>{
-  //     const res = await axios.get("http://localhost:5200")
-  //     console.log(res.data);
-  //   }
-    
-  //   runFun()
-  // })
 
   return (
     <Router>
+       <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+        }}
+      />
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />      
-        <Route path="/home" element={<Home />} />
+        {/* <Route path="/home" element={<Home />} /> */}
         <Route path="/review" element={<Review />} />
         <Route path="/post" element={<Post />} />
         <Route path='/notifaction' element={<Noti />} />
         <Route path='/profile' element={<ProfilePage />} />
         < Route path='/' element={<CritiQOpening/>} />
+        <Route path='/home' element={<MainPage />} />
+        <Route path='/loader' element={<MovieLoader />} />
+        <Route path='/about' element={<About />} />
+        
       </Routes>
     </Router>
 

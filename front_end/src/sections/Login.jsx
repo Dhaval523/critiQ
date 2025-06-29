@@ -9,9 +9,14 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-gray-900 to-gray-800 flex justify-center items-center p-4">
-      <AuthForm type="login" onSubmit={handleLogin} />
+    <div>
+      <div className="h-screen w-full bg-gradient-to-br from-gray-900 to-gray-800 flex justify-center items-center ">
+        <AuthForm type="login" onSubmit={handleLogin} />
+
+      </div>
+      
     </div>
+
   );
 };
 

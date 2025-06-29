@@ -54,20 +54,43 @@ const uploadReview = asyncHandler(async (req, res) => {
             user: req.user._id
         });
 
-       
+
         return res
             .status(201)
             .json(new ApiResponse(201, review, "Review uploaded successfully"));
 
     } catch (error) {
         // If error is already an ApiError, throw it as is, otherwise create new ApiError
-        throw error instanceof ApiError 
-            ? error 
+        throw error instanceof ApiError
+            ? error
             : new ApiError(500, error.message || "Failed to upload review");
+    }
+});
+const deleteReview = asyncHandler(async (req, res) => {
+    const reviewId = req.params.id;
+    
+    try {
+        const review = await Reviews.findById(reviewId);
+        if (!review) throw new ApiError(404, "Review not found");
+
+        if (review.user.toString() !== req.user._id.toString()) {
+            throw new ApiError(403, "You are not authorized to delete this review");
+        }
+
+        await Reviews.deleteOne({ _id: reviewId }); // Clean deletion
+
+        res.status(200).json(new ApiResponse(200, null, "Review deleted successfully"));
+    } catch (error) {
+        if (error instanceof ApiError) {
+            throw error;
+        } else {
+            throw new ApiError(500, error.message || "Failed to delete review");
+        }
     }
 });
 
 
 export {
-    uploadReview
+    uploadReview,
+    deleteReview
 }

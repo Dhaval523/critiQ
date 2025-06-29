@@ -3,6 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";              
 import { createNotification } from "../helpers/notificationHelper.js";
+import mongoose from "mongoose";
 
 // Create a new comment
 const createComment = asyncHandler(async (req, res) => {
@@ -28,7 +29,14 @@ const createComment = asyncHandler(async (req, res) => {
 
 // Get comments for a post
 const getPostComments = asyncHandler(async (req, res) => {
-    const { postId } = req.params;
+    const { postId } = req.query; // Extract postId from query parameters
+
+    // Validate postId
+    if (!postId || !mongoose.isValidObjectId(postId)) {
+        return res.status(400).json(
+            new ApiResponse(400, [], "Invalid or missing postId")
+        );
+    }
 
     const comments = await Comment.find({ post: postId })
         .populate("user", "username avatar")

@@ -1,600 +1,325 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Users, List, Plus, Settings, X, Film, Clapperboard, LogOut, Image, Camera } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import axiosInstance from "../api/axiosInstance";
-import { Axios } from "axios";
+import React, { useEffect, useState, useRef } from 'react';
+import { Settings, Edit, MoreVertical, ChevronLeft, ChevronRight } from 'lucide-react';
+import axiosInstance from '../api/axiosInstance';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import MovieLoader from './MovieLoader';
 
-const EditSettingsModal = ({ user, onClose, onLogout, onCoverUpdate }) => {
-  const [fullName, setFullName] = useState(user.fullName || "");
-  const [username, setUsername] = useState(user.username || "");
-  const [bio, setBio] = useState(user.bio || "");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [coverImage, setCoverImage] = useState(null);
-  const [coverPreview, setCoverPreview] = useState(user.coverImage || "");
-  const fileInputRef = useRef(null);
-  const accessToken = localStorage.getItem("accessToken");
-
-  const handleCoverChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setCoverImage(file);
-      setCoverPreview(URL.createObjectURL(file));
-    }
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleProfileUpdate = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    
-    try {
-      const formData = new FormData();
-      formData.append("fullName", fullName);
-      formData.append("username", username);
-      formData.append("bio", bio);
-      formData.append("email",email)
-      if (coverImage) {
-        formData.append("coverImage", coverImage);
-      }
-      if(avatar){
-        formData.append("avatar", avatar);
-      }
-
-      const response = await axiosInstance.put(
-        "/api/v1/users/updateProfile",
-        formData,
-        { 
-          headers: { 
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/form-data"
-          } 
-        }
-      );
-      
-      if (coverImage) {
-        onCoverUpdate(response.data.data.user.coverImage);
-      }
-      window.location.reload();
-    } catch (err) {
-      setError(err.response?.data?.message || "Error updating profile");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePasswordChange = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    if (newPassword !== confirmPassword) {
-      setError("New passwords don't match");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await axiosInstance.put(
-        "/api/v1/users/changePassword",
-        { currentPassword, newPassword },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
-      setCurrentPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
-      alert("Password changed successfully");
-    } catch (err) {
-      setError(err.response?.data?.message || "Error changing password");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-gray-950/90 flex items-center justify-center p-4 z-50"
-    >
-      <div className="bg-gray-900 w-full max-w-[95%] sm:max-w-md md:max-w-lg rounded-2xl p-6 max-h-[90vh] overflow-y-auto border border-amber-500/30 shadow-2xl shadow-amber-500/20">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2">
-            <Settings className="w-5 h-5" /> Edit Profile
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-amber-700/30 rounded-full text-amber-400 hover:text-amber-200 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {error && (
-          <div className="bg-red-900/30 text-red-300 p-3 rounded-lg mb-4 text-sm">
-            {error}
-          </div>
-        )}
-
-        {/* Cover Image Upload */}
-        <div className="mb-6">
-          <div className="relative h-32 rounded-lg overflow-hidden mb-4 border border-amber-600/30">
-            {coverPreview ? (
-              <img
-                src={coverPreview}
-                alt="Cover preview"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-r from-gray-800 to-gray-900 flex items-center justify-center">
-                <Image className="text-gray-600 w-10 h-10" />
-              </div>
-            )}
-            <button
-              onClick={triggerFileInput}
-              className="absolute bottom-3 right-3 bg-amber-600/80 hover:bg-amber-700/90 text-white px-3 py-1.5 rounded-full transition-all duration-300 flex items-center gap-1 text-xs"
-            >
-              <Camera className="w-4 h-4" />
-              <span>Change Cover</span>
-            </button>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleCoverChange}
-              accept="image/*"
-              className="hidden"
-            />
-          </div>
-        </div>
-
-        <form onSubmit={handleProfileUpdate} className="space-y-4 mb-6">
-          <div>
-            <label className="text-amber-400 text-sm font-medium">Full Name</label>
-            <input
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              className="w-full mt-1 p-3 bg-gray-800/50 border border-amber-600/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors"
-            />
-          </div>
-          <div>
-            <label className="text-amber-400 text-sm font-medium">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full mt-1 p-3 bg-gray-800/50 border border-amber-600/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors"
-            />
-          </div>
-          <div>
-            <label className="text-amber-400 text-sm font-medium">Bio</label>
-            <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              className="w-full mt-1 p-3 bg-gray-800/50 border border-amber-600/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
-              rows="3"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-3 rounded-lg transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-500/30"
-          >
-            {loading ? (
-              <>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                />
-                <span>Updating...</span>
-              </>
-            ) : (
-              "Update Profile"
-            )}
-          </button>
-        </form>
-
-        <form onSubmit={handlePasswordChange} className="space-y-4 mb-6">
-          <div>
-            <label className="text-amber-400 text-sm font-medium">Current Password</label>
-            <input
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full mt-1 p-3 bg-gray-800/50 border border-amber-600/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors"
-            />
-          </div>
-          <div>
-            <label className="text-amber-400 text-sm font-medium">New Password</label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full mt-1 p-3 bg-gray-800/50 border border-amber-600/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors"
-            />
-          </div>
-          <div>
-            <label className="text-teal-400 text-sm font-medium">Confirm New Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full mt-1 p-3 bg-gray-800/50 border border-teal-600/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white py-3 rounded-lg transition-all duration-300 disabled:opacity-50 shadow-lg hover:shadow-teal-500/30"
-          >
-            {loading ? "Changing..." : "Change Password"}
-          </button>
-        </form>
-
-        <button
-          onClick={onLogout}
-          className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-red-500/30"
-        >
-          <LogOut className="w-5 h-5" />
-          <span>Log Out</span>
-        </button>
-      </div>
-    </motion.div>
-  );
-};
-
-const Profile = () => {
+const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
-  const [playlists, setPlaylists] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [postCount, setPostCount] = useState(0);
+  const [avatar, setAvatar] = useState('');
+  const [coverImage, setCoverImage] = useState('');
   const [loading, setLoading] = useState(true);
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
-  const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState([]);
-  const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const [showFollowingModal, setShowFollowingModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [coverImage, setCoverImage] = useState("");
-  const accessToken = localStorage.getItem("accessToken");
+  const [menuOpenIndex, setMenuOpenIndex] = useState(null);
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editForm, setEditForm] = useState({
+    name: '',
+    username: '',
+    avatar: '',
+    coverImage: '',
+    bio: '',
+
+  });
+
+
+
+  const accessToken = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axiosInstance.get("/api/v1/users/profileView", {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        if (response.data?.data) {
-          setUser(response.data.data.user);
-          setCoverImage(response.data.data.user.coverImage || "");
-          setFollowerCount(response.data.data.follower || 0);
-          setFollowingCount(response.data.data.following || 0);
-          setPlaylists(response.data.data.user.playlists || []);
+        const [profileRes, postsRes] = await Promise.all([
+          axiosInstance.get('/api/v1/users/profileView', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
+          axiosInstance.get('/api/v1/reviews/getUserReviews', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
+        ]);
+
+        const profileData = profileRes.data?.data?.user;
+        const postsData = postsRes.data?.data?.reviews;
+
+        
+
+        if (profileData) {
+          setUser(profileData);
+          setAvatar(profileData.avatar);
+          setCoverImage(profileData.coverImage);
+          setFollowerCount(profileRes.data?.data?.follower || 0);
+          setFollowingCount(profileRes.data?.data?.following || 0);
         }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
+
+        const userPosts = postsRes.data.data;
+       
+        setPosts(userPosts);
+        setPostCount(userPosts.length);
+      } catch (err) {
+
+        toast.error('Failed to fetch profile.', {
+          style: {
+            background: '#1a0b3d',
+            color: '#f87171',
+            border: '1px solid rgba(251, 113, 133, 0.3)',
+            boxShadow: '0 0 15px rgba(251, 113, 133, 0.3)',
+          },
+        });
       } finally {
         setLoading(false);
       }
     };
+
     fetchProfile();
-  }, [accessToken]);
+  }, [accessToken, axiosInstance]);
 
-  const fetchFollowers = async () => {
-    try {
-      const response = await axiosInstance.get("/api/v1/users/getFollowersAndFollowing", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      setFollowers(response.data.data.followers || []);
-      setShowFollowersModal(true);
-    } catch (error) {
-      console.error("Error fetching followers:", error);
+  const toggleMenu = (index) => {
+    setMenuOpenIndex((prev) => (prev === index ? null : index));
+  };
+  const handleDelete = async (reviewId) => {
+  const confirmed = window.confirm("Are you sure you want to delete this review?");
+  if (!confirmed) return;
+
+  try {
+    await axiosInstance.delete(`/api/v1/reviews/deleteReview/${reviewId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    toast.success("Review deleted successfully!", {
+      style: {
+        background: '#1a0b3d',
+        color: '#86efac',
+        border: '1px solid rgba(34,197,94,0.3)',
+        boxShadow: '0 0 15px rgba(34,197,94,0.3)',
+      },
+    });
+
+    // 🧠 Remove the deleted review from state
+    setPosts((prevPosts) => prevPosts.filter(post => post._id !== reviewId));
+    setPostCount(prev => prev - 1);
+  } catch (error) {
+    const msg = error.response?.data?.message || "Failed to delete review";
+    toast.error(msg, {
+      style: {
+        background: '#1a0b3d',
+        color: '#f87171',
+        border: '1px solid rgba(251,113,133,0.3)',
+        boxShadow: '0 0 15px rgba(251,113,133,0.3)',
+      },
+    });
+  }
+};
+
+  const scroll = (direction) => {
+    const { current } = scrollRef;
+    if (current) {
+      const scrollAmount = 300;
+      current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   };
 
-  const fetchFollowing = async () => {
-    try {
-      const response = await axiosInstance.get("/api/v1/users/getFollowersAndFollowing", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      setFollowing(response.data.data.following || []);
-      setShowFollowingModal(true);
-    } catch (error) {
-      console.error("Error fetching following:", error);
-    }
-  };
+  if (loading || !user) return <MovieLoader />
+  return (
+    <div className="min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#2d0072] via-[#a40082] to-[#00b5e0] py-12 text-white px-4 sm:px-6">
+      {/* Cover */}
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    window.location.href = "/login";
-  };
+      <div
+        className="h-64 bg-cover bg-center z-0 p-12 rounded-lg md:ml-10 md:p-8"
+        style={{
+          backgroundImage: `url(${coverImage || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2'})`,
+        }}
+      >
 
-  const handleCoverUpdate = (newCoverUrl) => {
-    setCoverImage(newCoverUrl);
-  };
-
-  if (loading) return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-      <div className="text-amber-500 text-base sm:text-lg md:text-xl font-semibold animate-pulse flex items-center gap-3">
-        <Clapperboard className="w-6 h-6 animate-bounce" /> Loading your profile...
       </div>
-    </div>
-  );
 
-  if (!user) return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-      <div className="text-teal-400 text-base sm:text-lg md:text-xl font-semibold flex items-center gap-2">
-        <Film className="w-6 h-6" /> No profile found
-      </div>
-    </div>
-  );
+      {/* Profile Card */}
+      <div className="max-w-5xl mx-auto p-4 -mt-20 z-40">
+        <div className="bg-gray-800 rounded-2xl shadow-xl p-6 md:flex md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <img
+              src={avatar || 'https://randomuser.me/api/portraits/men/32.jpg'}
+              alt="Profile"
+              className="w-24 h-24 rounded-full border-4 border-gray-900 shadow-lg"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">{user.name}</h2>
+              <p className="text-gray-400">@{user.username || user.email?.split('@')[0]}</p>
+              <div className="flex gap-6 mt-2 text-sm text-gray-300">
+                <span><strong>{postCount}</strong> Posts</span>
+                <span><strong>{followerCount}</strong> Fans</span>
+                <span><strong>{followingCount}</strong> Following</span>
+              </div>
+            </div>
+          </div>
 
-  const UserListModal = ({ title, users, onClose }) => (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-gray-950/90 flex items-center justify-center p-4 z-50"
-    >
-      <div className="bg-gray-900 w-full max-w-[95%] sm:max-w-md md:max-w-lg rounded-2xl p-6 max-h-[80vh] overflow-y-auto border border-amber-500/30 shadow-2xl shadow-amber-500/20">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2">
-            <Users className="w-5 h-5" /> {title}
-          </h2>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-amber-700/30 rounded-full text-amber-500 hover:text-amber-200 transition-colors"
-          >
-            <X className="w-5 h-5" />
+          <button
+            onClick={() => {
+              setEditForm({ name: user.name || '', username: user.username || '', avatar: user.avatar || '', bio: user.bio || '', coverImage: user.coverImage || '' });
+              setIsEditOpen(true);
+            }} className="mt-4 md:mt-0 flex items-center gap-2 bg-amber-500 text-gray-900 px-4 py-2 rounded-full hover:bg-amber-600 transition">
+            <Edit size={16} /> Edit Profile
           </button>
         </div>
-        <div className="space-y-3">
-          {users.length > 0 ? (
-            users.map((user) => (
-              <div 
-                key={user._id}
-                className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-amber-800/30 transition-colors border border-amber-600/20"
-              >
-                <img
-                  src={user.avatar || "https://via.placeholder.com/40"}
-                  alt={user.username}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-amber-500 shadow-sm"
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-amber-500 font-semibold text-sm sm:text-base truncate">{user.fullName}</p>
-                  <p className="text-white text-xs">@{user.username}</p>
-                </div>
-                <div className="text-xs text-amber-400">
-                  <span>{user.followers?.length || 0} Fans</span>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-400 text-center py-6 text-sm">No users found</p>
-          )}
-        </div>
       </div>
-    </motion.div>
-  );
 
-  return (
-    <div className="min-h-screen md:pl-20 items-center bg-gray-950 text-white font-sans">
-      {/* Cover Image Section */}
-      <div className="relative h-[30vh] sm:h-[35vh] md:h-[40vh] max-h-[400px]">
-        {coverImage ? (
-          <img
-            src={coverImage}
-            alt="Cover"
-            className="w-full h-full object-cover -z-10"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-r from-gray-800 to-amber-900 flex items-center justify-center">
-            <div className="text-center">
-              <Clapperboard className="w-10 h-10 mx-auto text-gray-600 mb-2" />
-              <p className="text-gray-500">No cover image set</p>
-            </div>
+      {/* Posts Section with Horizontal Scroll */}
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-semibold text-white">Posts</h3>
+          <div className="flex gap-2">
+            <button onClick={() => scroll('left')} className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+              <ChevronLeft className="text-white" />
+            </button>
+            <button onClick={() => scroll('right')} className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+              <ChevronRight className="text-white" />
+            </button>
           </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/20 via-gray-950/60 to-gray-950" />
-        
-        {/* Profile Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 md:px-8 pb-6">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6">
-            <div className="relative group">
+        </div>
+
+        <div ref={scrollRef} className="flex overflow-x-auto gap-4 scroll-smooth pb-4 rounded-lg scrollbar-hide">
+          {posts.map((post, i) => (
+            <div
+              key={i}
+              className="relative min-w-[250px] bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition flex-shrink-0"
+            >
               <img
-                src={user.avatar || "https://via.placeholder.com/150"}
-                alt="Profile"
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border-4 border-amber-500 object-cover shadow-lg transition-transform duration-300 group-hover:scale-105"
+                src={post.image || `https://source.unsplash.com/random/300x200?sig=${i}`}
+                alt="Post"
+                className="w-full h-40 object-cover"
               />
-              <div className="absolute inset-0 rounded-full border-2 border-amber-400/40 animate-[spin_8s_linear_infinite] opacity-60" />
-            </div>
-            <div className="text-center sm:text-left space-y-2">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">{user.fullName}</h1>
-              <p className="text-gray-300 text-sm sm:text-base md:text-lg font-medium">@{user.username}</p>
-              <div className="flex justify-center sm:justify-start gap-4 sm:gap-6">
-                <button 
-                  onClick={fetchFollowers}
-                  className="text-sm sm:text-base text-amber-400 hover:text-amber-300 flex items-center gap-1.5 transition-colors"
-                >
-                  <Users className="w-4 h-4" /> {followerCount} Fans
-                </button>
-                <button 
-                  onClick={fetchFollowing}
-                  className="text-sm sm:text-base text-amber-400 hover:text-amber-300 flex items-center gap-1.5 transition-colors"
-                >
-                  <Users className="w-4 h-4" /> {followingCount} Following
-                </button>
+              <div className="p-4">
+                <h4 className="font-semibold text-lg mb-1">{post.movie || `Post #${i + 1}`}</h4>
+                <p className="text-yellow-400 text-sm mb-1">⭐ {post.rating}</p>
+                <p className="text-sm text-gray-400">{post.comment?.slice(0, 80) || 'No description available.'}</p>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Left Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            <div className="bg-gray-900/90 p-4 sm:p-6 rounded-2xl border border-amber-500/20 shadow-lg shadow-amber-500/10">
-              <p className="text-gray-200 text-sm sm:text-base font-medium italic bg-gray-800/40 p-3 rounded-lg">
-                "{user.bio || "Crafting my cinematic journey..."}"
-              </p>
-              <div className="flex items-center justify-center gap-2 mt-4 text-amber-400 bg-gray-800/40 px-4 py-2 rounded-lg">
-                <List className="w-5 h-5" />
-                <span className="text-sm sm:text-base font-semibold">{playlists.length} Lists</span>
-              </div>
-            </div>
-            <div className="space-y-4">
-              {/* <button 
-                onClick={() => setShowEditModal(true)}
-                className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-3 sm:py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:-translate-y-1"
-              >
-                <Settings className="w-5 h-5" />
-                <span className="text-sm sm:text-base font-semibold">Edit Profile</span>
-              </button> */}
-
-              <button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-3 sm:py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:-translate-y-1">
-                <Plus className="w-5 h-5" />
-                <span className="text-sm sm:text-base font-semibold">New Playlist</span>
-              </button>
-
-              <button 
-                onClick={handleLogout}
-                className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 sm:py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:-translate-y-1"
-              >
-                <LogOut className="w-5 h-5" />
-                <span className="text-sm sm:text-base font-semibold">Log Out</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Playlist Section */}
-          <div className="lg:col-span-2">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 sm:mb-8 flex items-center gap-2">
-              <Clapperboard className="w-6 h-6 text-amber-400" />
-              <span>Your Playlists</span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {playlists.map((playlist) => (
-                <motion.div
-                  key={playlist._id}
-                  whileHover={{ y: -5 }}
-                  className="relative bg-gray-900/90 p-4 sm:p-5 rounded-xl hover:bg-amber-900/30 transition-all duration-300 cursor-pointer border border-amber-500/20 shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20 group"
-                  onClick={() => setSelectedPlaylist(playlist)}
+              {/* 3-dot menu */}
+              <div className="absolute top-3 right-3">
+                <button
+                  onClick={() => toggleMenu(i)}
+                  className="p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full"
                 >
-                  <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                  <h3 className="text-base sm:text-lg font-semibold text-amber-300 group-hover:text-amber-200 truncate relative z-10">{playlist.name}</h3>
-                  <p className="text-gray-300 text-xs sm:text-sm mt-1 relative z-10">{playlist.movies?.length || 0} Films</p>
-                </motion.div>
-              ))}
-              {playlists.length === 0 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-gray-400 text-center py-8 sm:py-10 col-span-full text-sm sm:text-base font-medium"
-                >
-                  <Film className="w-6 h-6 mx-auto mb-2" /> Create your first playlist!
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Modals */}
-      <AnimatePresence>
-        {selectedPlaylist && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-gray-950/95 flex items-center justify-center p-4 z-50"
-          >
-            <div className="bg-gray-900 w-full max-w-[95%] sm:max-w-3xl md:max-w-4xl rounded-2xl p-6 max-h-[85vh] overflow-y-auto border border-amber-500/30 shadow-2xl shadow-amber-500/20">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-amber-400 flex items-center gap-2">
-                  <Clapperboard className="w-5 h-5" /> {selectedPlaylist.name}
-                </h2>
-                <button 
-                  onClick={() => setSelectedPlaylist(null)}
-                  className="p-2 hover:bg-amber-700/30 rounded-full text-amber-500 hover:text-amber-200 transition-colors"
-                >
-                  <X className="w-5 h-5" />
+                  <MoreVertical size={18} />
                 </button>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                {selectedPlaylist.movies?.length > 0 ? (
-                  selectedPlaylist.movies.map((movie) => (
-                    <motion.div 
-                      key={movie.imdbID}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="relative bg-gray-800/90 rounded-lg overflow-hidden hover:bg-amber-900/30 transition-all duration-300 shadow-lg shadow-amber-500/10 group"
+
+                {menuOpenIndex === i && (
+                  <div className="absolute right-0 mt-2 w-28 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-50">
+                    {/* <button onClick={() => alert('Edit')} className="w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700">
+                      ✏️ Edit
+                    </button> */}
+                    <button
+                      onClick={() => handleDelete(post._id)}
+                      className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-600"
                     >
-                      <div className="relative">
-                        <img 
-                          src={movie.Poster} 
-                          alt={movie.Title} 
-                          className="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-300 group-hover:scale-105" 
-                        />
-                        <div className="absolute inset-0 bg_gradient-to-t from-gray-900/80 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
-                        <div className="absolute top-2 right-2 bg-amber-500/80 px-2 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          {movie.imdbID}
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-sm sm:text-base font-semibold text-amber-300 group-hover:text-amber-200 truncate">{movie.Title}</h3>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-1">{movie.Year}</p>
-                      </div>
-                    </motion.div>
-                  ))
-                ) : (
-                  <p className="text-gray-400 text-center py-6 col-span-full text-sm sm:text-base font-medium">
-                    <Film className="w-6 h-6 mx-auto mb-2" /> No films in this playlist
-                  </p>
+                      🗑️ Delete
+                    </button>
+
+                  </div>
                 )}
+
               </div>
             </div>
-          </motion.div>
-        )}
+          ))}
+        </div>
+      </div>
 
-        {showFollowersModal && (
-          <UserListModal 
-            title="Fans"
-            users={followers}
-            onClose={() => setShowFollowersModal(false)}
-          />
-        )}
+      {isEditOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+          <div className="bg-white text-gray-900 rounded-xl p-6 w-full max-w-md shadow-xl relative">
+            <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
 
-        {showFollowingModal && (
-          <UserListModal 
-            title="Following"
-            users={following}
-            onClose={() => setShowFollowingModal(false)}
-          />
-        )}
+            <div className="space-y-4">
 
-        {showEditModal && (
-          <EditSettingsModal 
-            user={user}
-            onClose={() => setShowEditModal(false)}
-            onLogout={handleLogout}
-            onCoverUpdate={handleCoverUpdate}
-          />
-        )}
-      </AnimatePresence>
+              <div>
+                <label className="block font-medium">Username</label>
+                <input
+                  type="text"
+                  value={editForm.username}
+                  onChange={(e) => setEditForm({ ...editForm, username: e.target.value })}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+              <div>
+                <label className="block font-medium">Cover Image</label>
+                <input
+                  type="file"
+
+                  onChange={(e) => setEditForm({ ...editForm, coverImage: e.target.value })}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+
+
+              </div>
+
+              <div>
+                <label className="block font-medium">profile</label>
+                <input
+                  type="file"
+
+                  onChange={(e) => setEditForm({ ...editForm, avatar: e.target.value })}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+                onClick={() => setIsEditOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 rounded bg-amber-500 text-white hover:bg-amber-600"
+                onClick={async () => {
+                  try {
+                    await axiosInstance.post(
+                      '/api/v1/users/updateprofile',
+                      {
+                        name: editForm.name,
+                        username: editForm.username,
+                        avatar: editForm.avatar,
+                        coverImage: editForm.coverImage
+                      },
+                      {
+                        headers: { Authorization: `Bearer ${accessToken}` },
+                      }
+                    );
+
+                    toast.success('Profile updated!');
+                    setIsEditOpen(false);
+                    window.location.reload(); // or you can just update state locally
+                  } catch (err) {
+                   
+                    toast.error('Failed to update profile');
+                  }
+                }}
+              >
+                Save
+              </button>
+            </div>
+
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={() => setIsEditOpen(false)}
+            >
+              ✖
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
+
+
   );
 };
 
-export default Profile;
+export default UserProfile;

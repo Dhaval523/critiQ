@@ -68,38 +68,43 @@ const registerUser = asyncHandler(async (req, res) => {
     )
 })
 
-const loginUser = asyncHandler(async (req, res) => {
+const loginUser = asyncHandler(async (req, res , next) => {
     const { emailOrUsername, password } = req.body;
 
-    if (!emailOrUsername) {
-        throw new ApiError(400, "Username or email is required");
-    }
-
-    const user = await User.findOne({
-        $or: [{ email: emailOrUsername }, { username: emailOrUsername }]
-    });
-
-    if (!user) {
-        throw new ApiError(401, "Invalid username or email");
-    }
-
-    const isPasswordCorrect = await user.ispasswordCorrect(password);
-    if (!isPasswordCorrect) {
-        throw new ApiError(401, "Invalid user credentials");
-    }
-
-    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
-    const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
-
-    const options = {
-        httpOnly: true,
-        secure: true
-    };
-
+   try {
+     if (!emailOrUsername) {
+         throw new ApiError(400, "Username or email is required");
+     }
+ 
+     const user = await User.findOne({
+         $or: [{ email: emailOrUsername }, { username: emailOrUsername }]
+     });
+ 
+     if (!user) {
+         throw new ApiError(401, "Invalid username or email");
+     }
+ 
+     const isPasswordCorrect = await user.ispasswordCorrect(password);
+     if (!isPasswordCorrect) {
+         throw new ApiError(401, "Invalid user credentials");
+     }
+ 
+     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+     const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
+ 
+     const options = {
+         httpOnly: true,
+         secure: true
+     };
+     
     return res.status(200)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
         .json(new ApiResponse(200, { user: loggedInUser, accessToken, refreshToken }, "User logged in successfully"));
+   } catch (error) {
+       next(error)
+   }
+
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -108,10 +113,13 @@ const logoutUser = asyncHandler(async (req, res) => {
     }
 
     await User.findByIdAndUpdate(
-        req.user._id, // ✅ Safe access to `req.user._id`
-        { $unset: { refreshToken: "" } }, // ✅ Use `$unset` to remove refreshToken
+        req.user._id,
+        { $unset: { refreshToken: "" } },
         { new: true }
     );
+
+    
+    res.set('Clear-Site-Data', '"cache", "cookies", "storage"');
 
     return res.status(200)
         .clearCookie("accessToken", { httpOnly: true, secure: true })
@@ -162,18 +170,19 @@ const FollowerFollowing = asyncHandler(async (req, res) => {
     }
 
     // Check current follow status
-    const isCurrentlyFollowing = loggedInUser.following.some((id) =>
-        id.equals(followedId)
+    const isCurrentlyFollowing = loggedInUser.following.some(
+        (id) => id.toString() === followedId.toString()
     );
+    
 
     // Update follow status
     if (isCurrentlyFollowing) {
         // Unfollow
         loggedInUser.following = loggedInUser.following.filter(
-            (id) => !id.equals(followedId)
+            (id) => id.toString() !== followedId.toString()
         );
         userToFollow.followers = userToFollow.followers.filter(
-            (id) => !id.equals(userId)
+            (id) => id.toString() !== userId.toString()
         );
     } else {
         // Follow
@@ -344,6 +353,7 @@ const updateProfile = async (req, res) => {
         });
     }
 };
+
 
 
 

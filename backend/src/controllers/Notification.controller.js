@@ -10,46 +10,47 @@ import Notifications from "../models/Notification.js";
 const likePost = asyncHandler(async (req, res) => {
     const { postId } = req.body;
     const userId = req.user._id; // Current user from auth middleware
-
-    // Validate postId
+  
     if (!postId) {
-        throw new ApiError(400, "Post ID is required");
+      throw new ApiError(400, "Post ID is required");
     }
-
+  
     // Find the post and populate user details in one query
     const post = await Reviews.findById(postId).populate('user', 'username _id');
     if (!post) {
-        throw new ApiError(404, "Post not found");
+      throw new ApiError(404, "Post not found");
     }
-
+  
     const userIdStr = userId.toString();
     const isLiked = post.likes.some(id => id.toString() === userIdStr);
-
+  
     if (isLiked) {
-        // Unlike the post
-        post.likes = post.likes.filter(id => id.toString() !== userIdStr);
+      // Unlike the post
+      post.likes = post.likes.filter(id => id.toString() !== userIdStr);
     } else {
-        // Like the post
-        post.likes.push(userId);
-
-        // Send notification if the post owner is not the liker
-        if (post.user && post.user._id.toString() !== userIdStr) {
-            await createNotification(
-                post.user._id,
-                userId,
-                "like",
-                postId,
-                `${req.user.username} liked your post.`
-            );
-        }
+      // Like the post
+      post.likes.push(userId);
+  
+      // Send notification if the post owner is not the liker
+      if (post.user && post.user._id.toString() !== userIdStr) {
+        await createNotification(
+          post.user._id,
+          userId,
+          "like",
+          postId,
+          `${req.user.username} liked your post.`
+        );
+      }
     }
-
-    // Save the updated post
-
-    return res
-        .status(200)
-        .json(new ApiResponse(200, {like : post.likes.length}, "Post like toggled successfully"));
-});
+  
+    // ✅ Save the updated post
+    await post.save();
+  
+    return res.status(200).json(
+      new ApiResponse(200, { like: post.likes.length }, "Post like toggled successfully")
+    );
+  });
+  
 const isLike = asyncHandler(async (req, res) => {
     const currentId = req.user._id; // Current user's ID from auth middleware
     const { postId } = req.body; // Destructure postId from request body
@@ -72,9 +73,10 @@ const isLike = asyncHandler(async (req, res) => {
     }
 
     const isLiked = review.likes.includes(currentId); // Check if user liked the review
+    const count = review. likes.length;
 
     return res.status(200).json(
-        new ApiResponse(200, { isLiked }, "Like status checked successfully")
+        new ApiResponse(200, { isLiked , count }, "Like status checked successfully")
     );
 });
 

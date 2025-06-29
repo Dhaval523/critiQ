@@ -1,4 +1,4 @@
-import { Home, List, Plus, MessageCircle, User } from 'lucide-react';
+import { Home, List, Plus, MessageCircle, User, Star } from 'lucide-react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import React from 'react';
@@ -8,9 +8,9 @@ const Navbar = () => {
   const location = useLocation();
 
   const routes = [
-    { path: "/review", icon: <Home />, name: "Home" },
-    { path: "/home", icon: <List />, name: "Feed" },
-    { path: "/post", icon: <Plus />, name: "Create" },
+    { path: "/home", icon: <Home />, name: "Home" },
+    { path: "/review", icon: <Star />, name: "Reviews" },
+    { path: "/post", icon: <Plus />, name: "Post" },
     { path: "/notifaction", icon: <MessageCircle />, name: "Notication" },
     { path: "/profile", icon: <User />, name: "Profile" },
   ];
@@ -30,8 +30,8 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               className={`p-2.5 rounded-lg cursor-pointer transition-all duration-200 ${
                 isActive(route.path)
-                  ? "text-amber-500 bg-cyan-900/20"
-                  : "text-gray-400 hover:bg-cyan-900/10"
+                  ? "text-amber-500 bg-gray-900"
+                  : "text-gray-400 hover:bg-gray-900"
               }`}
             >
               {React.cloneElement(route.icon, {
@@ -41,7 +41,7 @@ const Navbar = () => {
             </motion.div>
 
             {/* Desktop Label */}
-            <div className="absolute hidden md:group-hover:block left-full ml-4 px-2.5 py-1.5 text-sm bg-black/95 backdrop-blur-sm rounded-md text-cyan-400 border border-cyan-900/30 shadow-xl">
+            <div className="absolute hidden md:group-hover:block left-full ml-4 px-2.5 py-1.5 text-sm bg-black/95 backdrop-blur-sm rounded-md text-white border border-cyan-900/30 shadow-xl">
               {route.name}
               <div className="absolute w-2 h-2 bg-black/95 rotate-45 -left-1 top-1/2 -translate-y-1/2 border-l border-t border-cyan-900/30" />
             </div>

@@ -5,7 +5,7 @@ import { createComment, getPostComments, updateComment } from "../controllers/Co
 const router = Router();
 
 router.route("/createComment").post(verifyJWT, createComment);          
-router.route("/:postId").get(verifyJWT, getPostComments);       
+router.route("/getcomment").get(verifyJWT, getPostComments);       
 router.route("/:commentId").patch(verifyJWT, updateComment);    
 
 export default router;

@@ -1,0 +1,1102 @@
+[
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q1)",
+    "options": [
+      "Sardar Udham",
+      "The Kashmir Files",
+      "Shershaah",
+      "Soorarai Pottru"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q2)",
+    "options": [
+      "Jr. NTR",
+      "Allu Arjun",
+      "Ram Charan",
+      "Prabhas"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q3)",
+    "options": [
+      "Christopher Nolan",
+      "Steven Spielberg",
+      "James Cameron",
+      "Quentin Tarantino"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q4)",
+    "options": [
+      "Dabangg",
+      "Wanted",
+      "Singham",
+      "Rowdy Rathore"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q5)",
+    "options": [
+      "Pushpa",
+      "KGF Chapter 2",
+      "Vikram",
+      "RRR"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q6)",
+    "options": [
+      "Chris Hemsworth",
+      "Chris Evans",
+      "Mark Ruffalo",
+      "Robert Downey Jr."
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q7)",
+    "options": [
+      "Salman Khan",
+      "Shah Rukh Khan",
+      "Aamir Khan",
+      "Saif Ali Khan"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q8)",
+    "options": [
+      "Sivaji",
+      "2.0",
+      "Enthiran",
+      "Kaala"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q9)",
+    "options": [
+      "The Revenant",
+      "Titanic",
+      "Shutter Island",
+      "Inception"
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q10)",
+    "options": [
+      "Alia Bhatt",
+      "Kangana Ranaut",
+      "Priyanka Chopra",
+      "Deepika Padukone"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q11)",
+    "options": [
+      "Soorarai Pottru",
+      "Shershaah",
+      "Sardar Udham",
+      "The Kashmir Files"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q12)",
+    "options": [
+      "Prabhas",
+      "Jr. NTR",
+      "Allu Arjun",
+      "Ram Charan"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q13)",
+    "options": [
+      "Steven Spielberg",
+      "James Cameron",
+      "Christopher Nolan",
+      "Quentin Tarantino"
+    ],
+    "correct": 2,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q14)",
+    "options": [
+      "Singham",
+      "Wanted",
+      "Dabangg",
+      "Rowdy Rathore"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q15)",
+    "options": [
+      "KGF Chapter 2",
+      "RRR",
+      "Vikram",
+      "Pushpa"
+    ],
+    "correct": 1,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q16)",
+    "options": [
+      "Robert Downey Jr.",
+      "Mark Ruffalo",
+      "Chris Evans",
+      "Chris Hemsworth"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q17)",
+    "options": [
+      "Saif Ali Khan",
+      "Shah Rukh Khan",
+      "Aamir Khan",
+      "Salman Khan"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q18)",
+    "options": [
+      "Kaala",
+      "2.0",
+      "Enthiran",
+      "Sivaji"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q19)",
+    "options": [
+      "Inception",
+      "The Revenant",
+      "Shutter Island",
+      "Titanic"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q20)",
+    "options": [
+      "Deepika Padukone",
+      "Priyanka Chopra",
+      "Kangana Ranaut",
+      "Alia Bhatt"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q21)",
+    "options": [
+      "Sardar Udham",
+      "Shershaah",
+      "Soorarai Pottru",
+      "The Kashmir Files"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q22)",
+    "options": [
+      "Jr. NTR",
+      "Ram Charan",
+      "Prabhas",
+      "Allu Arjun"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q23)",
+    "options": [
+      "James Cameron",
+      "Quentin Tarantino",
+      "Steven Spielberg",
+      "Christopher Nolan"
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q24)",
+    "options": [
+      "Singham",
+      "Rowdy Rathore",
+      "Dabangg",
+      "Wanted"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q25)",
+    "options": [
+      "Vikram",
+      "Pushpa",
+      "KGF Chapter 2",
+      "RRR"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q26)",
+    "options": [
+      "Chris Evans",
+      "Chris Hemsworth",
+      "Mark Ruffalo",
+      "Robert Downey Jr."
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q27)",
+    "options": [
+      "Aamir Khan",
+      "Saif Ali Khan",
+      "Shah Rukh Khan",
+      "Salman Khan"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q28)",
+    "options": [
+      "Enthiran",
+      "Kaala",
+      "Sivaji",
+      "2.0"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q29)",
+    "options": [
+      "Shutter Island",
+      "Inception",
+      "Titanic",
+      "The Revenant"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q30)",
+    "options": [
+      "Kangana Ranaut",
+      "Deepika Padukone",
+      "Priyanka Chopra",
+      "Alia Bhatt"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q31)",
+    "options": [
+      "Sardar Udham",
+      "Soorarai Pottru",
+      "Shershaah",
+      "The Kashmir Files"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q32)",
+    "options": [
+      "Allu Arjun",
+      "Ram Charan",
+      "Jr. NTR",
+      "Prabhas"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q33)",
+    "options": [
+      "James Cameron",
+      "Christopher Nolan",
+      "Quentin Tarantino",
+      "Steven Spielberg"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q34)",
+    "options": [
+      "Rowdy Rathore",
+      "Wanted",
+      "Singham",
+      "Dabangg"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q35)",
+    "options": [
+      "RRR",
+      "Pushpa",
+      "KGF Chapter 2",
+      "Vikram"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q36)",
+    "options": [
+      "Robert Downey Jr.",
+      "Chris Hemsworth",
+      "Chris Evans",
+      "Mark Ruffalo"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q37)",
+    "options": [
+      "Shah Rukh Khan",
+      "Saif Ali Khan",
+      "Salman Khan",
+      "Aamir Khan"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q38)",
+    "options": [
+      "2.0",
+      "Enthiran",
+      "Sivaji",
+      "Kaala"
+    ],
+    "correct": 1,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q39)",
+    "options": [
+      "Titanic",
+      "Inception",
+      "Shutter Island",
+      "The Revenant"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q40)",
+    "options": [
+      "Alia Bhatt",
+      "Deepika Padukone",
+      "Kangana Ranaut",
+      "Priyanka Chopra"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q41)",
+    "options": [
+      "The Kashmir Files",
+      "Shershaah",
+      "Sardar Udham",
+      "Soorarai Pottru"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q42)",
+    "options": [
+      "Ram Charan",
+      "Allu Arjun",
+      "Prabhas",
+      "Jr. NTR"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q43)",
+    "options": [
+      "James Cameron",
+      "Christopher Nolan",
+      "Quentin Tarantino",
+      "Steven Spielberg"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q44)",
+    "options": [
+      "Dabangg",
+      "Wanted",
+      "Singham",
+      "Rowdy Rathore"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q45)",
+    "options": [
+      "RRR",
+      "KGF Chapter 2",
+      "Pushpa",
+      "Vikram"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q46)",
+    "options": [
+      "Chris Evans",
+      "Chris Hemsworth",
+      "Robert Downey Jr.",
+      "Mark Ruffalo"
+    ],
+    "correct": 2,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q47)",
+    "options": [
+      "Saif Ali Khan",
+      "Shah Rukh Khan",
+      "Aamir Khan",
+      "Salman Khan"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q48)",
+    "options": [
+      "Enthiran",
+      "Kaala",
+      "Sivaji",
+      "2.0"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q49)",
+    "options": [
+      "Shutter Island",
+      "Titanic",
+      "The Revenant",
+      "Inception"
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q50)",
+    "options": [
+      "Priyanka Chopra",
+      "Deepika Padukone",
+      "Alia Bhatt",
+      "Kangana Ranaut"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q51)",
+    "options": [
+      "The Kashmir Files",
+      "Soorarai Pottru",
+      "Sardar Udham",
+      "Shershaah"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q52)",
+    "options": [
+      "Ram Charan",
+      "Allu Arjun",
+      "Jr. NTR",
+      "Prabhas"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q53)",
+    "options": [
+      "Steven Spielberg",
+      "James Cameron",
+      "Quentin Tarantino",
+      "Christopher Nolan"
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q54)",
+    "options": [
+      "Wanted",
+      "Dabangg",
+      "Rowdy Rathore",
+      "Singham"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q55)",
+    "options": [
+      "KGF Chapter 2",
+      "Pushpa",
+      "Vikram",
+      "RRR"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q56)",
+    "options": [
+      "Robert Downey Jr.",
+      "Mark Ruffalo",
+      "Chris Evans",
+      "Chris Hemsworth"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q57)",
+    "options": [
+      "Aamir Khan",
+      "Salman Khan",
+      "Saif Ali Khan",
+      "Shah Rukh Khan"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q58)",
+    "options": [
+      "Sivaji",
+      "Kaala",
+      "2.0",
+      "Enthiran"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q59)",
+    "options": [
+      "Shutter Island",
+      "Inception",
+      "The Revenant",
+      "Titanic"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q60)",
+    "options": [
+      "Alia Bhatt",
+      "Kangana Ranaut",
+      "Deepika Padukone",
+      "Priyanka Chopra"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q61)",
+    "options": [
+      "Shershaah",
+      "Sardar Udham",
+      "The Kashmir Files",
+      "Soorarai Pottru"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q62)",
+    "options": [
+      "Ram Charan",
+      "Prabhas",
+      "Allu Arjun",
+      "Jr. NTR"
+    ],
+    "correct": 1,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q63)",
+    "options": [
+      "Steven Spielberg",
+      "Quentin Tarantino",
+      "Christopher Nolan",
+      "James Cameron"
+    ],
+    "correct": 2,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q64)",
+    "options": [
+      "Dabangg",
+      "Singham",
+      "Rowdy Rathore",
+      "Wanted"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q65)",
+    "options": [
+      "Pushpa",
+      "KGF Chapter 2",
+      "Vikram",
+      "RRR"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q66)",
+    "options": [
+      "Robert Downey Jr.",
+      "Chris Hemsworth",
+      "Mark Ruffalo",
+      "Chris Evans"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q67)",
+    "options": [
+      "Salman Khan",
+      "Shah Rukh Khan",
+      "Saif Ali Khan",
+      "Aamir Khan"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q68)",
+    "options": [
+      "Sivaji",
+      "Enthiran",
+      "2.0",
+      "Kaala"
+    ],
+    "correct": 1,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q69)",
+    "options": [
+      "Shutter Island",
+      "Titanic",
+      "Inception",
+      "The Revenant"
+    ],
+    "correct": 2,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q70)",
+    "options": [
+      "Kangana Ranaut",
+      "Deepika Padukone",
+      "Priyanka Chopra",
+      "Alia Bhatt"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q71)",
+    "options": [
+      "Soorarai Pottru",
+      "Shershaah",
+      "The Kashmir Files",
+      "Sardar Udham"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q72)",
+    "options": [
+      "Allu Arjun",
+      "Ram Charan",
+      "Prabhas",
+      "Jr. NTR"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q73)",
+    "options": [
+      "Christopher Nolan",
+      "Steven Spielberg",
+      "Quentin Tarantino",
+      "James Cameron"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q74)",
+    "options": [
+      "Rowdy Rathore",
+      "Singham",
+      "Wanted",
+      "Dabangg"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q75)",
+    "options": [
+      "KGF Chapter 2",
+      "Pushpa",
+      "Vikram",
+      "RRR"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q76)",
+    "options": [
+      "Chris Hemsworth",
+      "Robert Downey Jr.",
+      "Mark Ruffalo",
+      "Chris Evans"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q77)",
+    "options": [
+      "Aamir Khan",
+      "Saif Ali Khan",
+      "Salman Khan",
+      "Shah Rukh Khan"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q78)",
+    "options": [
+      "Enthiran",
+      "2.0",
+      "Kaala",
+      "Sivaji"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q79)",
+    "options": [
+      "Inception",
+      "Titanic",
+      "Shutter Island",
+      "The Revenant"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q80)",
+    "options": [
+      "Kangana Ranaut",
+      "Deepika Padukone",
+      "Alia Bhatt",
+      "Priyanka Chopra"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q81)",
+    "options": [
+      "Sardar Udham",
+      "The Kashmir Files",
+      "Soorarai Pottru",
+      "Shershaah"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q82)",
+    "options": [
+      "Prabhas",
+      "Ram Charan",
+      "Jr. NTR",
+      "Allu Arjun"
+    ],
+    "correct": 0,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q83)",
+    "options": [
+      "Christopher Nolan",
+      "Steven Spielberg",
+      "Quentin Tarantino",
+      "James Cameron"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q84)",
+    "options": [
+      "Dabangg",
+      "Rowdy Rathore",
+      "Wanted",
+      "Singham"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q85)",
+    "options": [
+      "Pushpa",
+      "Vikram",
+      "RRR",
+      "KGF Chapter 2"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q86)",
+    "options": [
+      "Mark Ruffalo",
+      "Robert Downey Jr.",
+      "Chris Hemsworth",
+      "Chris Evans"
+    ],
+    "correct": 1,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q87)",
+    "options": [
+      "Aamir Khan",
+      "Shah Rukh Khan",
+      "Saif Ali Khan",
+      "Salman Khan"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q88)",
+    "options": [
+      "2.0",
+      "Enthiran",
+      "Sivaji",
+      "Kaala"
+    ],
+    "correct": 1,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q89)",
+    "options": [
+      "The Revenant",
+      "Titanic",
+      "Shutter Island",
+      "Inception"
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q90)",
+    "options": [
+      "Alia Bhatt",
+      "Deepika Padukone",
+      "Kangana Ranaut",
+      "Priyanka Chopra"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which Bollywood film won the National Award for Best Feature Film in 2022? (Q91)",
+    "options": [
+      "The Kashmir Files",
+      "Soorarai Pottru",
+      "Shershaah",
+      "Sardar Udham"
+    ],
+    "correct": 3,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which actor played the lead role in the movie 'Baahubali'? (Q92)",
+    "options": [
+      "Ram Charan",
+      "Jr. NTR",
+      "Prabhas",
+      "Allu Arjun"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who directed the movie 'Inception'? (Q93)",
+    "options": [
+      "James Cameron",
+      "Steven Spielberg",
+      "Quentin Tarantino",
+      "Christopher Nolan"
+    ],
+    "correct": 3,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which movie features the character 'Chulbul Pandey'? (Q94)",
+    "options": [
+      "Dabangg",
+      "Singham",
+      "Wanted",
+      "Rowdy Rathore"
+    ],
+    "correct": 0,
+    "category": "Bollywood"
+  },
+  {
+    "question": "Which South Indian movie became a global hit in 2022? (Q95)",
+    "options": [
+      "Pushpa",
+      "KGF Chapter 2",
+      "RRR",
+      "Vikram"
+    ],
+    "correct": 2,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Who played Iron Man in the Marvel Cinematic Universe? (Q96)",
+    "options": [
+      "Chris Hemsworth",
+      "Chris Evans",
+      "Robert Downey Jr.",
+      "Mark Ruffalo"
+    ],
+    "correct": 2,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Which Bollywood actor is known as 'King Khan'? (Q97)",
+    "options": [
+      "Salman Khan",
+      "Aamir Khan",
+      "Shah Rukh Khan",
+      "Saif Ali Khan"
+    ],
+    "correct": 2,
+    "category": "Bollywood"
+  },
+  {
+    "question": "In which movie did Rajinikanth play a scientist and a robot? (Q98)",
+    "options": [
+      "2.0",
+      "Kaala",
+      "Sivaji",
+      "Enthiran"
+    ],
+    "correct": 3,
+    "category": "South-Indian"
+  },
+  {
+    "question": "Which Hollywood movie is set in the dream world and stars Leonardo DiCaprio? (Q99)",
+    "options": [
+      "Inception",
+      "The Revenant",
+      "Shutter Island",
+      "Titanic"
+    ],
+    "correct": 0,
+    "category": "Hollywood"
+  },
+  {
+    "question": "Who is the lead actress in the Bollywood movie 'Queen'? (Q100)",
+    "options": [
+      "Priyanka Chopra",
+      "Kangana Ranaut",
+      "Deepika Padukone",
+      "Alia Bhatt"
+    ],
+    "correct": 1,
+    "category": "Bollywood"
+  }
+]

@@ -5,7 +5,7 @@ const CreateUsername = () => {
   const handleUsernameSubmit = (e) => {
     e.preventDefault();
     // Handle username creation logic here
-    console.log("Username created...");
+   
   };
 
   return (
