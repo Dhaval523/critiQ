@@ -63,7 +63,7 @@ const Review = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch("http://localhost:10000/api/v1/reviews/getReviews");
+        const res = await fetch("https://critiq-3.onrender.com/api/v1/reviews/getReviews");
         if (!res.ok) throw new Error(`Failed to fetch reviews: ${res.status}`);
         const data = await res.json();
        
@@ -224,7 +224,7 @@ const Review = () => {
                   transition={{
                     duration: 0.5,
                     delay: index * 0.05,
-                    type: "spring",
+                    type: "spring",    
                     damping: 15,
                   }}
                   className="relative"
