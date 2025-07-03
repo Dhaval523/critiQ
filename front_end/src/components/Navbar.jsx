@@ -24,7 +24,7 @@ const Navbar = () => {
           <li 
             key={index}
             className="relative group w-12 h-12 flex items-center justify-center"
-            onClick={() => navigate(route.path)}
+            onClick={() => navigate(route.path)} 
           >
             <motion.div
               whileHover={{ scale: 1.05 }}

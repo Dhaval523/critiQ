@@ -12,6 +12,6 @@ export default defineConfig({
     allowedHosts: ['*']
   },
   preview: {
-    allowedHosts: ['critiq-kurb.onrender.com']
+    allowedHosts: ['critiq-lqps.onrender.com']
   }
 })
