@@ -5,7 +5,7 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "start": "vite preview"
+        "start": "serve dist"
     },
     "type": "module",
     "dependencies": {
@@ -32,6 +32,7 @@
         "autoprefixer": "^10.4.0",
         "nodemon": "^3.1.10",
         "postcss": "^8.4.0",
+        "serve": "^14.2.4",
         "tailwindcss": "^3.4.17",
         "vite": "^5.0.0"
     }
