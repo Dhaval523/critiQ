@@ -6,6 +6,6 @@ export default defineConfig({
   preview: {
     host: '0.0.0.0', // required on Render
     port: 4173,       // optional, default for preview
-    allowedHosts: ['critiq-1.onrender.com'], // ✅ your Render host
+    allowedHosts: ['critiq-2.onrender.com'], // ✅ your Render host
   }
 })
