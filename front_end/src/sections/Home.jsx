@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Search from '../components/Search'
 import Mood from '../components/Mood'
 import TrendingMovies from '../components/TrendingMovies'
-import LogoNavbar from '../components/LogoNavbar.jsx'
+import LogoNavbar from "../components/LogoNavbar.jsx";
 
 
 const Home = () => {
