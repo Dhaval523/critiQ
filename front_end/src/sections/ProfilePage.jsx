@@ -2,7 +2,7 @@ import React from 'react'
 import Profile from '../components/profile'
 import Navbar from '../components/Navbar'
 import { ImageOff } from 'lucide-react'
-import Logonavbar from '../components/Logonavbar'
+import Logonavbar from '../components/LogoNavbar.jsx'
 
 function ProfilePage() {
   return (

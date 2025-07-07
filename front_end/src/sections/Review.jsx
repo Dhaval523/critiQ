@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReviewCard from "../components/ReviewCard";
 import Navbar from "../components/Navbar";
-import LogoNavbar from "../components/Logonavbar";
+import LogoNavbar from "../components/LogoNavbar.jsx";
 import toast from "react-hot-toast";
 import MovieLoader from "../components/MovieLoader";
 

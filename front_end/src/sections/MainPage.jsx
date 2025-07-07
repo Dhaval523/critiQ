@@ -7,7 +7,7 @@ import debounce from "lodash.debounce";
 import movieQ from "../data/movieQ.json";
 import BoxOffice from "../components/Boxofffice";
 import { ImageOff } from "lucide-react";
-import LogoNavbar from "../components/Logonavbar";
+import LogoNavbar from "../components/LogoNavbar.jsx";
 
 // MovieCard Component
 const MovieCard = ({ movie, index }) => {
