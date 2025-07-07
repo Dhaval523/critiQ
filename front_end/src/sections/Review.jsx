@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReviewCard from "../components/ReviewCard";
 import Navbar from "../components/Navbar";
-import LogoNavbar from "../components/LogoNavbar.jsx";
+import Logo from "../components/logo.jsx";
 import toast from "react-hot-toast";
 import MovieLoader from "../components/MovieLoader";
 
@@ -136,7 +136,7 @@ const Review = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#2d0072] via-[#a40082] to-[#00b5e0] text-white">
-      <LogoNavbar />
+      <Logo />
       <Navbar className="z-50 relative" />
       <FloatingParticles count={45} />
 

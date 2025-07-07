@@ -7,7 +7,7 @@ import debounce from "lodash.debounce";
 import movieQ from "../data/movieQ.json";
 import BoxOffice from "../components/Boxofffice";
 import { ImageOff } from "lucide-react";
-import LogoNavbar from "../components/LogoNavbar.jsx";
+import Logo from "../components/logo.jsx";
 
 // MovieCard Component
 const MovieCard = ({ movie, index }) => {
@@ -481,7 +481,7 @@ const MovieReviewApp = () => {
       <div className="min-h-screen relative w-full overflow-hidden bg-gradient-to-br from-[#2d0072] via-[#a40082] to-[#00b5e0] py-12 text-white">
          
          
-         <LogoNavbar />
+         <Logo />
         
         <Navbar isScrolled={isScrolled} />
 

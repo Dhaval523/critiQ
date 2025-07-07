@@ -5,7 +5,7 @@ import { Settings } from 'lucide-react';
 
 import axiosInstance from '../api/axiosInstance';
 const accessToken = localStorage.getItem('accessToken');
-const  LogoNavbar = () => {
+const  Logo = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -179,4 +179,4 @@ const logout = () =>{
   );
 };
 
-export default LogoNavbar ;
+export default Logo ;

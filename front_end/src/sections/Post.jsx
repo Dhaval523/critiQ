@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Star, ImagePlus, Tag, AlertTriangle, Film, Send, Search, X, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import LogoNavbar from '../components/LogoNavbar';
+import Logo from '../components/logo';
 import axiosInstance from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
@@ -273,7 +273,7 @@ const Post = () => {
      
       <GlowingOrbs count={20} />
 
-      <LogoNavbar className="z-50 relative" />
+      <Logo className="z-50 relative" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
        
