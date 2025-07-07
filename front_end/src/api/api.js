@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance';
 
-const API_URl = '/api/users';
+const API_URl = '/api/v1/users';
 
 export const registerUser = async (userData) => {
      const response = await axiosInstance.post(`${API_URl}/register`, userData);
