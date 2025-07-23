@@ -1,12 +1,14 @@
 // src/api/axiosInstance.js
+
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://critiq-3.onrender.com", // ✅ Your live backend URL
-  withCredentials: true, // Include cookies if using JWT or sessions
+  baseURL: "http://localhost:3000", 
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
 
 export default axiosInstance;

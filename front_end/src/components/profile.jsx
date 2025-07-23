@@ -48,7 +48,7 @@ const UserProfile = () => {
         const profileData = profileRes.data?.data?.user;
         const postsData = postsRes.data?.data?.reviews;
 
-        
+
 
         if (profileData) {
           setUser(profileData);
@@ -59,7 +59,7 @@ const UserProfile = () => {
         }
 
         const userPosts = postsRes.data.data;
-       
+
         setPosts(userPosts);
         setPostCount(userPosts.length);
       } catch (err) {
@@ -84,38 +84,38 @@ const UserProfile = () => {
     setMenuOpenIndex((prev) => (prev === index ? null : index));
   };
   const handleDelete = async (reviewId) => {
-  const confirmed = window.confirm("Are you sure you want to delete this review?");
-  if (!confirmed) return;
+    const confirmed = window.confirm("Are you sure you want to delete this review?");
+    if (!confirmed) return;
 
-  try {
-    await axiosInstance.delete(`/api/v1/reviews/deleteReview/${reviewId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    try {
+      await axiosInstance.delete(`/api/v1/reviews/deleteReview/${reviewId}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
 
-    toast.success("Review deleted successfully!", {
-      style: {
-        background: '#1a0b3d',
-        color: '#86efac',
-        border: '1px solid rgba(34,197,94,0.3)',
-        boxShadow: '0 0 15px rgba(34,197,94,0.3)',
-      },
-    });
+      toast.success("Review deleted successfully!", {
+        style: {
+          background: '#1a0b3d',
+          color: '#86efac',
+          border: '1px solid rgba(34,197,94,0.3)',
+          boxShadow: '0 0 15px rgba(34,197,94,0.3)',
+        },
+      });
 
-    // 🧠 Remove the deleted review from state
-    setPosts((prevPosts) => prevPosts.filter(post => post._id !== reviewId));
-    setPostCount(prev => prev - 1);
-  } catch (error) {
-    const msg = error.response?.data?.message || "Failed to delete review";
-    toast.error(msg, {
-      style: {
-        background: '#1a0b3d',
-        color: '#f87171',
-        border: '1px solid rgba(251,113,133,0.3)',
-        boxShadow: '0 0 15px rgba(251,113,133,0.3)',
-      },
-    });
-  }
-};
+      // 🧠 Remove the deleted review from state
+      setPosts((prevPosts) => prevPosts.filter(post => post._id !== reviewId));
+      setPostCount(prev => prev - 1);
+    } catch (error) {
+      const msg = error.response?.data?.message || "Failed to delete review";
+      toast.error(msg, {
+        style: {
+          background: '#1a0b3d',
+          color: '#f87171',
+          border: '1px solid rgba(251,113,133,0.3)',
+          boxShadow: '0 0 15px rgba(251,113,133,0.3)',
+        },
+      });
+    }
+  };
 
   const scroll = (direction) => {
     const { current } = scrollRef;
@@ -250,8 +250,8 @@ const UserProfile = () => {
                 <label className="block font-medium">Cover Image</label>
                 <input
                   type="file"
-
-                  onChange={(e) => setEditForm({ ...editForm, coverImage: e.target.value })}
+                  name="coverImage"
+                  onChange={(e) => setEditForm({ ...editForm, coverImage: e.target.files[0] })}
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
 
@@ -262,8 +262,8 @@ const UserProfile = () => {
                 <label className="block font-medium">profile</label>
                 <input
                   type="file"
-
-                  onChange={(e) => setEditForm({ ...editForm, avatar: e.target.value })}
+                  name="avatar"
+                  onChange={(e) => setEditForm({ ...editForm, avatar: e.target.files[0] })}
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
               </div>
@@ -280,24 +280,31 @@ const UserProfile = () => {
                 className="px-4 py-2 rounded bg-amber-500 text-white hover:bg-amber-600"
                 onClick={async () => {
                   try {
-                    await axiosInstance.post(
-                      '/api/v1/users/updateprofile',
-                      {
-                        name: editForm.name,
-                        username: editForm.username,
-                        avatar: editForm.avatar,
-                        coverImage: editForm.coverImage
-                      },
-                      {
-                        headers: { Authorization: `Bearer ${accessToken}` },
+                    console.log(editForm)
+                    const formData = new FormData();
+                    formData.append("name", editForm.name);
+                    formData.append("username", editForm.username);
+
+                    if (editForm.avatar) {
+                      formData.append("avatar", editForm.avatar); // Make sure it's a File object
+                    }
+                    if (editForm.coverImage) {
+                      formData.append("coverImage", editForm.coverImage);
+                    }
+
+                    await axiosInstance.post('/api/v1/users/updateprofile', formData, {
+                      headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'multipart/form-data', // axios will set this automatically with FormData
                       }
-                    );
+                    });
+
 
                     toast.success('Profile updated!');
                     setIsEditOpen(false);
-                    window.location.reload(); // or you can just update state locally
+                    // window.location.reload(); // or you can just update state locally
                   } catch (err) {
-                   
+
                     toast.error('Failed to update profile');
                   }
                 }}

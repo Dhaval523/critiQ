@@ -124,7 +124,7 @@ const AuthForm = ({ type }) => {
           emailOrUsername: formData.email,
           password: formData.password,
         });
-
+        console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data.data.user));
         localStorage.setItem("accessToken", res.data.data.accessToken);
         localStorage.setItem("refreshToken", res.data.data.refreshToken);

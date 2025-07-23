@@ -178,7 +178,7 @@ const CritiQOpening = ({ onComplete }) => {
                 <FaUser className="text-sm" /> Sign In
               </button>
               <button
-                onClick={() => navigate("/register")}
+                onClick={() => navigate("/signup")}
                 className="flex items-center gap-2 px-4 py-2 bg-transparent border border-amber-500 hover:bg-amber-500/20 text-white font-semibold rounded-full transition-all text-sm"
               >
                 Sign Up

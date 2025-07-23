@@ -3,9 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  preview: {
-    host: '0.0.0.0', // required on Render
-    port: 4173,       // optional, default for preview
-    allowedHosts: ['critiq-2.onrender.com'], // ✅ your Render host
+  server: {
+    host: 'localhost',
+    port: 5173, // change to whatever you prefer
   }
 })
