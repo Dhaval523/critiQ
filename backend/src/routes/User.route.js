@@ -29,7 +29,10 @@ router.route('/followerAndFollowing').post(verifyJWT,FollowerFollowing)
 router.route("/getFollowersAndFollowing").get(verifyJWT,getFollowingAndFollowers)
 router.route("/checkFollow").post(verifyJWT,checkIsFollow)
 router.route("/toggleFollow").post(verifyJWT,toggleFollow)
-router.route('/updateprofile').post(verifyJWT,updateProfile)
+router.route('/updateprofile').post(verifyJWT, upload.fields([
+  { name: 'coverImage', maxCount: 1 },
+  { name: 'avatar', maxCount: 1 }
+]), updateProfile)
 
 
 export default router;

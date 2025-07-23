@@ -311,8 +311,10 @@ const updateProfile = async (req, res) => {
 
         // Upload and update coverImage if provided
         const coverImagePath = req.files?.coverImage?.[0]?.path;
+        console.log(coverImagePath)
         if (coverImagePath) {
             const uploadedCover = await uploadOnCloudinary(coverImagePath);
+            console.log(uploadedCover)
             if (!uploadedCover?.url) {
                 return res.status(400).json({ message: "Cover image upload failed", success: false });
             }
@@ -336,6 +338,7 @@ const updateProfile = async (req, res) => {
         if (fullName) user.fullName = fullName;
 
         await user.save();
+        console.log(user)
      
 
         return res.status(200).json({
