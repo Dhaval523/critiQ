@@ -12,7 +12,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin:  "http://localhost:5173",
+        origin:  "https://critiq-2.onrender.com",
         credentials: true,
     },
     transports: ['websocket', 'polling']
@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
 });
 
 app.use(cors({
-    origin:  "http://localhost:5173",
+    origin:  "https://critiq-2.onrender.com",
     credentials: true,
 }))
 
